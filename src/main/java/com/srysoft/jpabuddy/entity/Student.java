@@ -34,13 +34,9 @@ public class Student {
     @Column(name = "email_id",nullable = false)
     private String emailId;
 
-    @Column(name = "guardian_name")
-    private String guardianName;
+    @Embedded
+    private Guardian guardian;
 
-    @Column(name = "guardian_email")
-    private String guardianEmail;
 
-    @Column(name = "guardian_mobile")
-    private String guardianMobile;
 
 }
