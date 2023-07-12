@@ -15,13 +15,15 @@ import javax.validation.constraints.NotNull;
 })
 public class Student {
     @Id
+    /*
     @SequenceGenerator(name = "student_sequence",
             sequenceName = "student_sequence",
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
     generator = "student_sequence")
-
+*/
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id", nullable = false)
     private Long studentId;
 
@@ -34,13 +36,7 @@ public class Student {
     @Column(name = "email_id",nullable = false)
     private String emailId;
 
-    @Column(name = "guardian_name")
-    private String guardianName;
-
-    @Column(name = "guardian_email")
-    private String guardianEmail;
-
-    @Column(name = "guardian_mobile")
-    private String guardianMobile;
+    @Embedded
+    private Guardian guardian;
 
 }

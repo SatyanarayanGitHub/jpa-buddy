@@ -6,9 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,16 +25,20 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
-    @Autowired
-    private ModelMapper modelMapper;
-
 
     @GetMapping("/students")
-    public List<StudentDto> getAllStudents() {
-        return studentService.getAllStudents()
-                .stream()
-                .map((student) -> modelMapper.map(student, StudentDto.class))
-                .collect(Collectors.toList());
+    public ResponseEntity<List<StudentDto>> getAllStudents() {
+        List<StudentDto> allStudents = studentService.getAllStudents();
+        return new ResponseEntity<>(allStudents, HttpStatus.OK);
+    }
+
+    @PostMapping("/students")
+    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto) {
+        logger.info("-->> Create Student - " + studentDto);
+        StudentDto studentDtoObject = studentService.createStudent(studentDto);
+
+        logger.info("-->> Created -- "+ studentDtoObject);
+        return new ResponseEntity<>(studentDtoObject, HttpStatus.CREATED);
     }
 
 

@@ -14,9 +14,7 @@ public class StudentDto {
 
     private String emailId;
 
-    private String guardianName;
+    private GuardianDto guardian;
 
-    private String guardianEmail;
 
-    private String guardianMobile;
 }
